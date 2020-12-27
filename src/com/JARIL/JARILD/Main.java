@@ -82,19 +82,22 @@ public class Main
 
 
 
-					//synchronized (grupo) {
+					synchronized (grupo) {
 						grupo[conta].cambiador = MatJa.memoriaFantasma(pori);
 						//MatJa.impMat(pori);
 						//MatJa.impMat(grupo[conta].cambiador);
 
-
-						grupo[conta].filas = conta;
+						
+						//grupo[conta].filas = conta;
 						//System.out.println(conta);
-					//}
-				grupo[conta].start();
+					}
+				//grupo[conta].start();
 
 
 
+			}
+			for (porfila pli: grupo){
+				pli.start();
 			}
         synchronized (hiloprin){
             try {
@@ -123,22 +126,40 @@ class porfila extends Thread
 	@Override
 	public void run()
 	{
-		int pollo=filas;
-
+		
+		
+		//int pollo=filas;
+		//System.out.println(filas);
 		double [][]clara;
 
 			//MatJa.impMat(cambiador);
-
+try{
 		clara= MatJa.result(cambiador,constante);
 
         memoria=clara;
+}catch(Exception er){
+System.out.println(er);
+}
         //detectamos la ultima fila a procesar que quiero decir con eso que se enviara a procesar
-        if(filas>=ultimo){
+        if(aument>=ultimo){
            // MatJa.impMat(memoria);
-            synchronized (hiloPrin){
+		   
+           // synchronized (this){
+			   try{
+				   synchronized(hiloPrin){
                 hiloPrin.notify();
-            }
+				}}
+				catch(Exception es){
+					System.out.println(es);
+				}
+           // }
+			
         }
+		synchronized(hiloPrin){
+			//System.out.println(aument+"ruanda "+ultimo);
+			this.aument++;
+			
+		}
 
 
 	}

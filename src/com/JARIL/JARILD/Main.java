@@ -4,13 +4,15 @@ public class Main
 {
 	public static void main(String []args)
 	{
-		double [][]x={{2,1},{6,7}};
+		double [][]x=new double[][]{{7,6},{8,9}};
 		double [][]ollo=new double [][]{x[0]};
-		double [][]y={{2,1},{6,7}};
+		double [][]y=new double[][]{{1,2},{9,1}};
 		//MatJa.impMat(x);
+		//MatJa.impMat(y);
 		//System.out.println(6/5);
 
 		resPro(x,y);
+		//MatJa.impMat(MatJa.result(x,y));
 	}
 	static public void resPro(double [][]x,double [][]y)
 	{
@@ -107,8 +109,10 @@ public class Main
                 System.out.println("error linea 95 interupcion hilo principal no lograda un error tipo \n "+es);
             }
         }
+		//double acomodador=0;
         for(porfila polli: grupo){
             MatJa.impMat(polli.memoria);
+			//System.out.println(polli.aument);
         }
 		
 	}
@@ -124,7 +128,7 @@ class porfila extends Thread
 	static int ultimo;
 
 	@Override
-	public void run()
+	public  void run()
 	{
 		
 		
@@ -134,16 +138,20 @@ class porfila extends Thread
 
 			//MatJa.impMat(cambiador);
 try{
+	
 		clara= MatJa.result(cambiador,constante);
-
+	//System.out.println("pollito");
+		//MatJa.impMat(clara);
         memoria=clara;
 }catch(Exception er){
 System.out.println(er);
 }
+//System.out.println(aument);
         //detectamos la ultima fila a procesar que quiero decir con eso que se enviara a procesar
-        if(aument>=ultimo){
+		synchronized(porfila.class){
+        if(porfila.aument>=ultimo){
            // MatJa.impMat(memoria);
-		   
+			
            // synchronized (this){
 			   try{
 				   synchronized(hiloPrin){
@@ -155,9 +163,11 @@ System.out.println(er);
            // }
 			
         }
-		synchronized(hiloPrin){
-			//System.out.println(aument+"ruanda "+ultimo);
-			this.aument++;
+		//System.out.println(aument+"ruanda "+ultimo);
+		
+		
+			//System.out.flush();
+			porfila.aument++;
 			
 		}
 

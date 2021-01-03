@@ -4,18 +4,30 @@ public class Main
 {
 	public static void main(String []args)
 	{
-		double [][]x=new double[][]{{7,6},{8,9}};
+		double [][]x=MatJa.random(810,860);
 		double [][]ollo=new double [][]{x[0]};
-		double [][]y=new double[][]{{1,2},{9,1}};
+		double [][]y=MatJa.random(860,860);
 		//MatJa.impMat(x);
 		//MatJa.impMat(y);
 		//System.out.println(6/5);
-
-		resPro(x,y);
-		//MatJa.impMat(MatJa.result(x,y));
+		long startTime = System.nanoTime();
+		//System.out.println(startTime/1e6);
+		//calculateETOrdered(12,13); // llamamos al método
+		//System.out.println(startTime);
+		 resPro(x,y);
+		long endTime = System.nanoTime();
+		//System.out.println(endTime/1e6);
+		long cal=endTime-startTime;
+		System.out.println("tiempo"+cal/1e6);
+		/*MatJa.impMat(*/MatJa.result(x,y);
+		long gati=System.nanoTime();
+		long col=gati-endTime;
+		System.out.println("tiempo"+col/1e6);
+		System.out.println("existe una diferencia de "+((col-cal)/1e6));
 	}
 	static public void resPro(double [][]x,double [][]y)
 	{
+		if(x.length>=12){
 		int numeri=0,numri=0;
 		int setAumen=0;
 		int uron=0;
@@ -110,14 +122,17 @@ public class Main
             }
         }
 		//double acomodador=0;
-        for(porfila polli: grupo){
-            MatJa.impMat(polli.memoria);
+       for(porfila polli: grupo){
+           // MatJa.impMat(polli.memoria);
 			//System.out.println(polli.aument);
         }
-		
+		}else{
+			//MatJa.impMat(MatJa.result(x,y));
+		}
 	}
+	
 }
-class porfila extends Thread
+class porfila extends Thread 
 {
     static double [][]constante;
     double [][] memoria;
@@ -128,7 +143,7 @@ class porfila extends Thread
 	static int ultimo;
 
 	@Override
-	public  void run()
+	public  void run() 
 	{
 		
 		

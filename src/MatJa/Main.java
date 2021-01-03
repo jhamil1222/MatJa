@@ -1,4 +1,4 @@
-package com.JARIL.JARILD;
+package MatJa;
 
 public class Main
 {

@@ -1,12 +1,13 @@
 package MatJa;
+import java.util.*;
 
 public class Main
 {
 	public static void main(String []args)
 	{
-		double [][]x=MatJa.random(810,860);
+		double [][]x=MatJa.random(12,4);
 		double [][]ollo=new double [][]{x[0]};
-		double [][]y=MatJa.random(860,860);
+		double [][]y=MatJa.random(4,4);
 		//MatJa.impMat(x);
 		//MatJa.impMat(y);
 		//System.out.println(6/5);
@@ -14,19 +15,24 @@ public class Main
 		//System.out.println(startTime/1e6);
 		//calculateETOrdered(12,13); // llamamos al método
 		//System.out.println(startTime);
-		 resPro(x,y);
-		long endTime = System.nanoTime();
+		 double [][]palo=resPro(ollo,y);
+		// MatJa.impMat(palo);
+		System.out.println(Arrays.deepEquals(palo,MatJa.result(x,y)));
+		//long endTime = System.nanoTime();
 		//System.out.println(endTime/1e6);
-		long cal=endTime-startTime;
-		System.out.println("tiempo"+cal/1e6);
-		/*MatJa.impMat(*/MatJa.result(x,y);
-		long gati=System.nanoTime();
-		long col=gati-endTime;
-		System.out.println("tiempo"+col/1e6);
-		System.out.println("existe una diferencia de "+((col-cal)/1e6));
+		//long cal=endTime-startTime;
+		//System.out.println("tiempo"+cal/1e6);
+		//MatJa.impMat(MatJa.result(x,y));
+		
+		//System.out.println(palo.equals(MatJa.result(x,y)));
+		//long gati=System.nanoTime();
+		//long col=gati-endTime;
+		//System.out.println("tiempo"+col/1e6);
+		//System.out.println("existe una diferencia de "+((col-cal)/1e6));
 	}
-	static public void resPro(double [][]x,double [][]y)
+	static public double[][] resPro(double [][]x,double [][]y)
 	{
+		double[][] acomodador=new double[x.length][];
 		if(x.length>=12){
 		int numeri=0,numri=0;
 		int setAumen=0;
@@ -121,13 +127,23 @@ public class Main
                 System.out.println("error linea 95 interupcion hilo principal no lograda un error tipo \n "+es);
             }
         }
-		//double acomodador=0;
+		
+		int suelta=0;
+		
        for(porfila polli: grupo){
-           // MatJa.impMat(polli.memoria);
+		   for(double[] diko:polli.memoria)
+		   {//System.out.println(suelta);
+			   acomodador[suelta]=diko;
+			   
+			   suelta++;
+		   }
+           
 			//System.out.println(polli.aument);
         }
+			//MatJa.impMat(acomodador);
+		return acomodador;
 		}else{
-			//MatJa.impMat(MatJa.result(x,y));
+			return MatJa.result(x,y);
 		}
 	}
 	

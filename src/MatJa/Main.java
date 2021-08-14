@@ -5,19 +5,29 @@ public class Main
 {
 	public static void main(String []args)
 	{
-		double [][]x=MatJa.random(12,4);
-		double [][]ollo=new double [][]{x[0]};
-		double [][]y=MatJa.random(4,4);
+		//double [][]x=MatJa.random(1024,1024,0,1);
+		//double [][]ollo=new double [][]{x[0]};
+		//double [][]y=MatJa.random(1024,1024);
 		//MatJa.impMat(x);
 		//MatJa.impMat(y);
 		//System.out.println(6/5);
+                Object pol=new StrMulDot().dot(new double [][]{{2,2},{1.5,3}}, new double [][]{{1,2},{3,4}});
+                if(pol==null){
+                    System.out.println("te tiene que salir asi ");
+                    MatJa.impMat(MatJa.result(new double [][]{{1,2},{1,3}}, new double [][]{{1,2},{3,4}}));
+                }
+                else{
+                     MatJa.impMat(MatJa.result(new double [][]{{2,2},{1.5,3}}, new double [][]{{1,2},{3,4}}));
+                     MatJa.impMat((double [][])pol);
+                }
 		long startTime = System.nanoTime();
 		//System.out.println(startTime/1e6);
 		//calculateETOrdered(12,13); // llamamos al método
 		//System.out.println(startTime);
-		 double [][]palo=resPro(ollo,y);
+		 //double [][]palo=resPro(x,y);
 		// MatJa.impMat(palo);
-		System.out.println(Arrays.deepEquals(palo,MatJa.result(x,y)));
+		System.out.println("se termino");
+                
 		//long endTime = System.nanoTime();
 		//System.out.println(endTime/1e6);
 		//long cal=endTime-startTime;
@@ -29,6 +39,7 @@ public class Main
 		//long col=gati-endTime;
 		//System.out.println("tiempo"+col/1e6);
 		//System.out.println("existe una diferencia de "+((col-cal)/1e6));
+                //MatJa.impMat(new double[][]{palo[0],palo[1023]});
 	}
 	static public double[][] resPro(double [][]x,double [][]y)
 	{
@@ -60,10 +71,12 @@ public class Main
 						numri=re;
 					}
 
-					//System.out.println(numeri);
+					//System.out.println(numri);
 				}
 			}
 		}
+               // numri=4;
+               // System.out.println(numri);
 		//System.out.println("numri"+numri);
 		//System.out.println("numeri"+numeri);
 		//no tocar esete array
@@ -74,13 +87,14 @@ public class Main
 	//solo usare los hilos que da la pc como maximo
 		//numri es el numero de hilos noy que olvidar ese detalle
 		//MatJa.impMat(x);
-
+                
 		porfila [] grupo=new porfila[numri];
 		//establecemos una constante no tan constante ustedes entienden gg
 		grupo[0]=new porfila();
 		grupo[0].constante=y;
 		grupo[0].memoria=new double[x.length][y[0].length];
 		//grupo[0].guardador=new int[numri];
+                
         grupo[0].hiloPrin=hiloprin;
         grupo[0].ultimo=numri-1;
 			for(int conta=0; conta<numri; conta++)
@@ -121,6 +135,7 @@ public class Main
 			}
         synchronized (hiloprin){
             try {
+                //espera consume recursos mejorar esta parte 
                 hiloprin.wait();
             }catch(Exception es){
                 //establecer log aqui

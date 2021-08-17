@@ -5,31 +5,54 @@ public class Main
 {
 	public static void main(String []args)
 	{
-		double [][]x=MatJa.random(12,4);
+		double [][]x=MatJa.random(1023,1023,1,9,true);
 		double [][]ollo=new double [][]{x[0]};
 		double [][]y=MatJa.random(4,4);
 		//MatJa.impMat(x);
-		//MatJa.impMat(y);
-		//System.out.println(6/5);
-		long startTime = System.nanoTime();
-		//System.out.println(startTime/1e6);
-		//calculateETOrdered(12,13); // llamamos al método
-		//System.out.println(startTime);
-		 double [][]palo=resPro(ollo,y);
-		// MatJa.impMat(palo);
-		System.out.println(Arrays.deepEquals(palo,MatJa.result(x,y)));
-		//long endTime = System.nanoTime();
-		//System.out.println(endTime/1e6);
-		//long cal=endTime-startTime;
-		//System.out.println("tiempo"+cal/1e6);
-		//MatJa.impMat(MatJa.result(x,y));
-		
-		//System.out.println(palo.equals(MatJa.result(x,y)));
-		//long gati=System.nanoTime();
-		//long col=gati-endTime;
-		//System.out.println("tiempo"+col/1e6);
-		//System.out.println("existe una diferencia de "+((col-cal)/1e6));
+		particionN2(x);
+
 	}
+	public static double [][][] particionN2(double [][]t) {
+		int r=t.length;
+		int k=t[0].length;
+		int max=(r/2)*(k/2);
+		
+		if(r%2==0) {r--;max+=k;}
+		if(k%2==0) {k--; max+=r;}	
+		System.out.println(max);
+		int tb=0;
+		int ta=0;
+		int aux=0;
+		double [][][]memoria=new double[max][2][2];
+		max=0;
+		int i=0,j=0;
+		for(int a=0; a<r; a++) {
+			if((tb+1)%2==0) {
+				max=ta;
+				
+			}
+			for(int b=0; b<k; b++) {
+				memoria[aux][i][j]=t[a][b];
+				if((b+1)%2==0) {
+					aux++;
+					j=-1;
+					if(b==k-1) {
+						if(max>=aux) i=-1;						
+						ta=aux;
+						aux=max;
+					}
+				}
+				j++;
+				
+				
+			}
+			i++;
+			tb++;
+		}
+		return memoria;
+	}
+	
+	
 	static public double[][] resPro(double [][]x,double [][]y)
 	{
 		double[][] acomodador=new double[x.length][];

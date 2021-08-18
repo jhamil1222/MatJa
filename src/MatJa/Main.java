@@ -5,21 +5,60 @@ public class Main
 {
 	public static void main(String []args)
 	{
-		double [][]x=MatJa.random(1023,1023,1,9,true);
-		double [][]ollo=new double [][]{x[0]};
-		double [][]y=MatJa.random(4,4);
+		double [][]x=MatJa.random(7,7,1,9,true);
+		//double [][]ollo=new double [][]{x[0]};
+		double [][]y=MatJa.random(2,2);
+		//ingresU(y,9,position.f);
 		//MatJa.impMat(x);
-		particionN2(x);
-
+		System.out.println("empieza");
+		//MatJa.impMat(ingresU(x,7,position.c));
+		MatJa.impMat(particionN2(x)[15]);
+		/*for(double[][] pato:*///particionN2(x);//){MatJa.impMat(pato);}
+		System.out.println("se termino");
+		
+		
+	}
+	enum position{c,f};
+	public static double[][] ingresU(double [][]m,int num,position p){
+		double[][]ma=null;
+		if(p==p.f){
+			ma=new double[m.length+1][m[0].length];
+			for(int i=0; i<m.length+1; i++){
+				for(int j=0; j<m.length; j++){
+					if(i>=m.length){
+						//System.out.println(num);
+						ma[i][j]=num;
+					}
+					else{
+					ma[i][j]=m[i][j];
+					}
+				}
+			}
+		}
+		else{
+			ma=new double[m.length][m[0].length+1];
+			for(int i=0; i<m.length; i++){
+				for(int j=0; j<m.length+1; j++){
+					
+					if(j>=m[0].length){
+						ma[i][j]=num;
+					}
+					else{
+						ma[i][j]=m[i][j];
+					}
+				}
+			}
+			
+		}
+		return ma;
 	}
 	public static double [][][] particionN2(double [][]t) {
+		if(t[0].length%2!=0){t=ingresU(t,0,position.c);}
+		if(t.length%2!=0){t=ingresU(t,0,position.f);}
 		int r=t.length;
 		int k=t[0].length;
 		int max=(r/2)*(k/2);
 		
-		if(r%2==0) {r--;max+=k;}
-		if(k%2==0) {k--; max+=r;}	
-		System.out.println(max);
 		int tb=0;
 		int ta=0;
 		int aux=0;
@@ -50,6 +89,7 @@ public class Main
 			tb++;
 		}
 		return memoria;
+		
 	}
 	
 	
